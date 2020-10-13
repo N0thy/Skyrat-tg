@@ -51,22 +51,22 @@
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		switch(ready)
 			if(PLAYER_NOT_READY)
-				output += "<p>\[ [LINKIFY_READY("Ready", PLAYER_READY_TO_PLAY)] | <b>Not Ready</b> | [LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)] \]</p>"
+				output += "<p>\[ [LINKIFY_READY("Listo", PLAYER_READY_TO_PLAY)] | <b>No listo</b> | [LINKIFY_READY("Observar", PLAYER_READY_TO_OBSERVE)] \]</p>"
 			if(PLAYER_READY_TO_PLAY)
-				output += "<p>\[ <b>Ready</b> | [LINKIFY_READY("Not Ready", PLAYER_NOT_READY)] | [LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)] \]</p>"
+				output += "<p>\[ <b>Listo</b> | [LINKIFY_READY("No listo", PLAYER_NOT_READY)] | [LINKIFY_READY("Observar", PLAYER_READY_TO_OBSERVE)] \]</p>"
 			if(PLAYER_READY_TO_OBSERVE)
-				output += "<p>\[ [LINKIFY_READY("Ready", PLAYER_READY_TO_PLAY)] | [LINKIFY_READY("Not Ready", PLAYER_NOT_READY)] | <b> Observe </b> \]</p>"
+				output += "<p>\[ [LINKIFY_READY("Listo", PLAYER_READY_TO_PLAY)] | [LINKIFY_READY("No listo", PLAYER_NOT_READY)] | <b> Observe </b> \]</p>"
 	else
-		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>View the Crew Manifest</a></p>"
-		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
-		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
+		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>Mirar el manifiesto</a></p>"
+		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Entrar al juego!</a></p>"
+		output += "<p>[LINKIFY_READY("Observar", PLAYER_READY_TO_OBSERVE)]</p>"
 
 	if(!IsGuestKey(src.key))
 		output += playerpolls()
 
 	output += "</center>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 250, 265)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>Opciones de nuevo jugador</div>", 250, 265)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output.Join())
 	popup.open(FALSE)
@@ -98,9 +98,9 @@
 			qdel(query_get_new_polls)
 			return
 		if(query_get_new_polls.NextRow())
-			output += "<p><b><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
+			output += "<p><b><a href='byond://?src=[rs];showpoll=1'>Mostrar encuestas de los jugadores</A> (NUEVO!)</b></p>"
 		else
-			output += "<p><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A></p>"
+			output += "<p><a href='byond://?src=[rs];showpoll=1'>Mostrar encuestas de los jugadores</A></p>"
 		qdel(query_get_new_polls)
 		if(QDELETED(src))
 			return
@@ -127,8 +127,8 @@
 		client.prefs.ShowChoices(src)
 		return TRUE
 
-	if(href_list["ready"])
-		var/tready = text2num(href_list["ready"])
+	if(href_list["Listo"])
+		var/tready = text2num(href_list["Listo"])
 		//Avoid updating ready if we're after PREGAME (they should use latejoin instead)
 		//This is likely not an actual issue but I don't have time to prove that this
 		//no longer is required
@@ -146,7 +146,7 @@
 
 	if(href_list["late_join"])
 		if(!SSticker?.IsRoundInProgress())
-			to_chat(usr, "<span class='boldwarning'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, "<span class='boldwarning'>La ronda aun no está lista, o ya ha acabado...The round is either not ready, or has already finished...</span>")
 			return
 
 		if(href_list["late_join"] == "override")
@@ -158,7 +158,7 @@
 
 			var/queue_position = SSticker.queued_players.Find(usr)
 			if(queue_position == 1)
-				to_chat(usr, "<span class='notice'>You are next in line to join the game. You will be notified when a slot opens up.</span>")
+				to_chat(usr, "<span class='notice'>Eres el siguiente para unirte al juego. Seras notificado cuando una slot sea abierta.</span>")
 			else if(queue_position)
 				to_chat(usr, "<span class='notice'>There are [queue_position-1] players in front of you in the queue to join the game.</span>")
 			else
