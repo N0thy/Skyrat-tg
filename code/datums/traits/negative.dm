@@ -7,13 +7,13 @@
 #define LOCATION_HANDS "in your hands"
 
 /datum/quirk/badback
-	name = "Bad Back"
-	desc = "Thanks to your poor posture, backpacks and other bags never sit right on your back. More evently weighted objects are fine, though."
+	name = "Mala Espalda"
+	desc = "Gracias a tu mala postura, las mochilas y otras bolsas no se ajustan bien a tu espalda. Otros objetos más equilibrados no tienen ese efecto."
 	value = -2
 	mood_quirk = TRUE
-	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
-	lose_text = "<span class='notice'>Your back feels better.</span>"
-	medical_record_text = "Patient scans indicate severe and chronic back pain."
+	gain_text = "<span class='danger'>¡Tu espalda REALMENTE duele!</span>"
+	lose_text = "<span class='notice'>Tu espalda se siente mejor.</span>"
+	medical_record_text = "El escáner del paciente demuestra un dolor de espalda severo y crónico."
 	hardcore_value = 4
 
 /datum/quirk/badback/on_process()
@@ -24,11 +24,11 @@
 		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "back_pain")
 
 /datum/quirk/blooddeficiency
-	name = "Blood Deficiency"
-	desc = "Your body can't produce enough blood to sustain itself."
+	name = "Deficencia de Sangre"
+	desc = "Tu cuerpo no puede producir la suficiente sangre para si mismo."
 	value = -2
-	gain_text = "<span class='danger'>You feel your vigor slowly fading away.</span>"
-	lose_text = "<span class='notice'>You feel vigorous again.</span>"
+	gain_text = "<span class='danger'>Sientes que tu vigor se desvanece lentamente.</span>"
+	lose_text = "<span class='notice'>Te sientes vigoroso nuevamente.</span>"
 	medical_record_text = "Patient requires regular treatment for blood loss due to low production of blood."
 	hardcore_value = 8
 
